@@ -3,11 +3,15 @@
   "version": "0.1.0",
   "description": "A tiny library to work with modular scale",
   "main": "lib/modular-scale.js",
+  "files": [
+    "/lib"
+  ],
   "scripts": {
     "build": "babel src -d lib",
     "dev": "npm run build -- --watch",
     "test": "jest",
-    "test-watch": "npm run test -- --watch"
+    "test-watch": "npm run test -- --watch",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "modular",
@@ -29,7 +33,9 @@
   },
   "homepage": "https://github.com/vajdagabor/modular-scale#readme",
   "babel": {
-    "presets": ["@babel/preset-env"]
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
