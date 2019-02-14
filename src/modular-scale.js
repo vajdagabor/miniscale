@@ -3,25 +3,15 @@
  */
 
 
-// Returns the proportion between two steps on the scale.
-export const proportion = (ratio, distance) => {
-  if (ratio <= 0) throw(new Error("Ratio must be larger than zero"));
-  return ratio ** distance;
-}
-
-// Calculates size from base size, ratio and distance from the base.
-export const size = (base, ratio, distance) => {
-  return base * proportion(ratio, distance);
-}
-
 // All-in-one function for setting up the scale and getting the values.
-export const scale = (base, ratio) => (
-  index => ({
+export const scale = (base, ratio) => {
+  if (ratio <= 0) throw(new Error("Ratio must be larger than zero"));
+  return(index => ({
     index: index,
-    value: size(base, ratio, index),
-    ratio: proportion(ratio, index)
-  })
-);
+    ratio: ratio ** index,
+    value: base * ratio ** index
+  }));
+};
 
 // Assembles an array of steps in the range of min and max.
 export const scaleArray = ({ base, ratio, min, max }) => {
