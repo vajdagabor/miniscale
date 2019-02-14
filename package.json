@@ -2,8 +2,10 @@
   "name": "modular-scale",
   "version": "0.1.0",
   "description": "A tiny library to work with modular scale",
-  "main": "modular-scale.js",
+  "main": "lib/modular-scale.js",
   "scripts": {
+    "build": "babel src -d lib",
+    "dev": "babel -w src -d lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -16,5 +18,21 @@
     "typography"
   ],
   "author": "Gabor Vajda",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vajdagabor/modular-scale.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vajdagabor/modular-scale/issues"
+  },
+  "homepage": "https://github.com/vajdagabor/modular-scale#readme",
+  "babel": {
+    "presets": ["@babel/preset-env"]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1"
+  }
 }
