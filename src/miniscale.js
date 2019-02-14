@@ -1,5 +1,5 @@
 /* Miniscale -> A tiny package to work with modular scale
- * https://github.com/vajdagabor/modular-scale
+ * https://github.com/vajdagabor/miniscale
  */
 
 

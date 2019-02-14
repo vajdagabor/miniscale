@@ -1,8 +1,8 @@
 {
-  "name": "modular-scale",
+  "name": "miniscale",
   "version": "0.1.0",
-  "description": "A tiny library to work with modular scale",
-  "main": "lib/modular-scale.js",
+  "description": "A tiny package for working with modular scale",
+  "main": "lib/miniscale.js",
   "files": [
     "/lib"
   ],
@@ -26,12 +26,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vajdagabor/modular-scale.git"
+    "url": "git+https://github.com/vajdagabor/miniscale.git"
   },
   "bugs": {
-    "url": "https://github.com/vajdagabor/modular-scale/issues"
+    "url": "https://github.com/vajdagabor/miniscale/issues"
   },
-  "homepage": "https://github.com/vajdagabor/modular-scale#readme",
+  "homepage": "https://github.com/vajdagabor/miniscale#readme",
   "babel": {
     "presets": [
       "@babel/preset-env"

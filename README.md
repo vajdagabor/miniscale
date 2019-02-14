@@ -1,6 +1,6 @@
 # Miniscale
 
-A tiny package to work with **modular scale**, which is most useful for
+A tiny package for working with **modular scale**, which is most useful for
 [meaningful typography](https://alistapart.com/article/more-meaningful-typography).
 
 ## Installation

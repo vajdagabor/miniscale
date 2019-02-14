@@ -1,4 +1,4 @@
-import * as modular from "../src/modular-scale";
+import * as modular from "../src/miniscale";
 
 
 describe("scale() function", () => {
