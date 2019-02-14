@@ -1,4 +1,5 @@
-import * as modular from "./modular-scale";
+import * as modular from "../src/modular-scale";
+
 
 describe("proportion() function", () => {
 
