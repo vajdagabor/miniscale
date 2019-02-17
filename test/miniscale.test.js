@@ -62,6 +62,22 @@ describe("scale() function", () => {
 
 describe("scaleArray() function", () => {
 
+  it("throws error when ratio is not larger than 1", () => {
+    expect(() => modular.scaleArray({ base: 16, ratio: 1, min: 1, max: 100 })).toThrow();
+    expect(() => modular.scaleArray({ base: 16, ratio: 0, min: 1, max: 100 })).toThrow();
+    expect(() => modular.scaleArray({ base: 16, ratio: -10, min: 1, max: 100 })).toThrow();
+  });
+
+  it("throws error when base is not larger than zero", () => {
+    expect(() => modular.scaleArray({ base: 0, ratio: 1.2, min: 0, max: 100 })).toThrow();
+    expect(() => modular.scaleArray({ base: -1, ratio: 1.2, min: -1, max: 100 })).toThrow();
+  });
+
+  it("throws error when min is not larger than zer", () => {
+    expect(() => modular.scaleArray({ base: 16, ratio: 1.2, min: 0, max: 100 })).toThrow();
+    expect(() => modular.scaleArray({ base: 16, ratio: 1.2, min: -1, max: 100 })).toThrow();
+  });
+
   it("returns a scale as array, in the of min and max", () => {
     const steps = modular.scaleArray({base: 16, ratio: 1.125, min: 14, max: 25});
     expect(steps).toMatchObject([

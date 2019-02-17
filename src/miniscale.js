@@ -15,6 +15,10 @@ export const scale = (base, ratio) => {
 
 // Assembles an array of steps in the range of min and max.
 export const scaleArray = ({ base, ratio, min, max }) => {
+  if (base <= 0) throw(new Error("Base must be larger than zero"));
+  if (ratio <= 1) throw(new Error("Ratio must be larger than 1"));
+  if (min <= 0) throw(new Error("Min must be larger than zero"));
+
   if (min > base || max < base) return [];
 
   let steps = [];
