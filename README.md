@@ -28,18 +28,26 @@ on the scale:
 
 ```js
 // Two steps up from the base
-ms(2)         // -> { index: 2, value: 20.25, ratio: 1.265625 }
+ms(2)         // -> { index: 2, value: 20.25, ratio: 1.265625, … }
 ms(2).value   // -> 20.25
 
 // One step down
 ms(-1).ratio  // -> 0.8888888888888888
 
 // Get the base
-ms(0)         // -> { index: 0, value: 16, ratio: 1}
+ms(0)         // -> { index: 0, value: 16, ratio: 1, …}
+```
+
+For stylesheets `px`, `rem` and `em` conversion comes handy:
+
+```js
+ms(2).px   // -> "20.25px"
+ms(2).rem  // -> "1.265625rem"
+ms(2).em  // -> "1.265625em"
 ```
 
 The `scale()` function calculates the values on the fly. If you need,
-you can generate an array instead, in the range of `min` and `max` size,
+you can generate an array instead, in the range of `min` and `max`,
 with the `scaleArray()` function:
 
 ```js
