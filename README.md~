@@ -28,7 +28,7 @@ on the scale:
 
 ```js
 // Two steps up from the base
-ms(2)         // -> { index: 2, value: 20.25, ratio: 1.265625 }
+ms(2)         // -> { index: 1, value: 20.25, ratio: 1.265625 }
 ms(2).value   // -> 20.25
 
 // One step down
