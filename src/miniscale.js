@@ -28,16 +28,11 @@ export const withUnits = ms => {
   };
 };
 
-// Assembles an array of steps in the range of min and max.
-export const scaleArray = ({ base, ratio, min, max }) => {
-  if (base <= 0) throw new Error("Base must be larger than zero");
-  if (ratio <= 1) throw new Error("Ratio must be larger than 1");
-  if (min <= 0) throw new Error("Min must be larger than zero");
-
-  if (min > base || max < base) return [];
-
+export const scaleArrayFrom = (ms, { min = 0, max = 0 }) => {
+  const base = ms(0).value;
   let steps = [];
-  let ms = scale(base, ratio);
+  if (min <= 0) throw new Error("Min must be larger than zero");
+  if (min > base || max < base) return [];
 
   for (let index = 0; ms(index).value <= max; index++) steps.push(ms(index));
 

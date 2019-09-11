@@ -1,16 +1,16 @@
-import * as modular from "../src/miniscale";
+import { scale, withUnits, scaleArrayFrom } from "../src/miniscale";
 
 describe("scale() function", () => {
-  const ms1 = modular.scale(16, 1.125);
-  const ms2 = modular.scale(21, 1.2);
-  const ms3 = modular.scale(13.5, 1.5);
+  const ms1 = scale(16, 1.125);
+  const ms2 = scale(21, 1.2);
+  const ms3 = scale(13.5, 1.5);
 
   it("throws error when ratio is zero", () => {
-    expect(() => modular.scale(16, 0)).toThrow();
+    expect(() => scale(16, 0)).toThrow();
   });
 
   it("throws error when ratio is negative", () => {
-    expect(() => modular.scale(16, -3)).toThrow();
+    expect(() => scale(16, -3)).toThrow();
   });
 
   it("returns a function", () => {
@@ -77,7 +77,7 @@ describe("scale() function", () => {
 });
 
 describe("withUnits()", () => {
-  const msu = modular.withUnits(modular.scale(10, 2));
+  const msu = withUnits(scale(10, 2));
 
   it("makes scale() to include values with units in the final result", () => {
     expect(msu(0)).toMatchObject({
@@ -99,41 +99,18 @@ describe("withUnits()", () => {
   });
 });
 
-describe("scaleArray() function", () => {
-  it("throws error when ratio is not larger than 1", () => {
-    expect(() =>
-      modular.scaleArray({ base: 16, ratio: 1, min: 1, max: 100 })
-    ).toThrow();
-    expect(() =>
-      modular.scaleArray({ base: 16, ratio: 0, min: 1, max: 100 })
-    ).toThrow();
-    expect(() =>
-      modular.scaleArray({ base: 16, ratio: -10, min: 1, max: 100 })
-    ).toThrow();
-  });
-
-  it("throws error when base is not larger than zero", () => {
-    expect(() =>
-      modular.scaleArray({ base: 0, ratio: 1.2, min: 0, max: 100 })
-    ).toThrow();
-    expect(() =>
-      modular.scaleArray({ base: -1, ratio: 1.2, min: -1, max: 100 })
-    ).toThrow();
-  });
-
+describe("scaleArrayFrom()", () => {
   it("throws error when min is not larger than zero", () => {
     expect(() =>
-      modular.scaleArray({ base: 16, ratio: 1.2, min: 0, max: 100 })
+      scaleArrayFrom(scale(16, 1.2), { min: 0, max: 100 })
     ).toThrow();
     expect(() =>
-      modular.scaleArray({ base: 16, ratio: 1.2, min: -1, max: 100 })
+      scaleArrayFrom(scale(16, 1.2), { min: -1, max: 100 })
     ).toThrow();
   });
 
-  it("returns a scale as array, in the of min and max", () => {
-    const steps = modular.scaleArray({
-      base: 16,
-      ratio: 1.125,
+  it("returns a scale as array, in the range of min and max", () => {
+    const steps = scaleArrayFrom(scale(16, 1.125), {
       min: 14,
       max: 25
     });
@@ -163,9 +140,7 @@ describe("scaleArray() function", () => {
   });
 
   it("includes min and max values", () => {
-    const steps = modular.scaleArray({
-      base: 16,
-      ratio: 1.125,
+    const steps = scaleArrayFrom(scale(16, 1.125), {
       min: 14.222222222222221,
       max: 18
     });
@@ -182,5 +157,43 @@ describe("scaleArray() function", () => {
         ratio: 1.125
       }
     ]);
+  });
+
+  it("includes values with units when called as scaleArrayFrom(withUnits(scale, min, max))", () => {
+    const steps = scaleArrayFrom(withUnits(scale(10, 2)), { min: 2, max: 30 });
+    expect(steps).toMatchObject([
+      {
+        index: -2,
+        value: 2.5,
+        ratio: 0.25,
+        px: "2.5px",
+        rem: "0.25rem",
+        em: "0.25em"
+      },
+      {
+        index: -1,
+        value: 5,
+        ratio: 0.5,
+        px: "5px",
+        rem: "0.5rem",
+        em: "0.5em"
+      },
+      {
+        index: 0,
+        value: 10,
+        ratio: 1,
+        px: "10px",
+        rem: "1rem",
+        em: "1em"
+      },
+      {
+        index: 1,
+        value: 20,
+        ratio: 2,
+        px: "20px",
+        rem: "2rem",
+        em: "2em"
+      },
+    ])
   });
 });

@@ -45,12 +45,12 @@ ms(2).rem  // -> "1.265625rem"
 ms(2).em  // -> "1.265625em"
 ```
 
-The `scale()` function calculates the values on the fly. If you need,
-you can generate an array instead, in the range of `min` and `max`,
-with the `scaleArray()` function:
+The `scale()` function calculates the values on the fly. If you need a static
+array of the steps, you can use the `scaleArray()` function. It generates an array in the range of `min` and `max`, that contains all values of each step.
 
 ```js
-const steps = modular.scaleArray({ base: 16, ratio: 1.125, min: 14, max: 36 })
+import { scale, scaleArrayFrom } from 'miniscale'
+const steps = scaleArrayFrom(scale(16, 1.125), { min: 14, max: 36 })
 
 /*
  *[ { index: -1, value: 14.222222222222221, ratio: 0.8888888888888888 },
@@ -62,4 +62,12 @@ const steps = modular.scaleArray({ base: 16, ratio: 1.125, min: 14, max: 36 })
  *  { index: 5, value: 28.83251953125, ratio: 1.802032470703125 },
  *  { index: 6, value: 32.43658447265625, ratio: 2.0272865295410156 } ]
  */
+```
+
+The `withUnits()` function can be used here too:
+
+```js
+const steps = scaleArrayFrom(withUnits(scale(16, 1.125)), { min: 14, max: 36 })
+console.log(steps[2].px)  // -> "18px"
+console.log(steps[2].rem)  // -> "1.125rem"
 ```
