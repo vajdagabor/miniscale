@@ -5,16 +5,25 @@
 // All-in-one function for setting up the scale and getting the values.
 export const scale = (base, ratio) => {
   if (ratio <= 0) throw new Error("Ratio must be larger than zero");
-  return function(index) {
+  return function ms(index) {
     const r = ratio ** index;
     const v = base * r;
     return {
       index,
       ratio: r,
-      value: v,
-      px: v + "px",
-      rem: r + "rem",
-      em: r + "em"
+      value: v
+    };
+  };
+};
+
+export const withUnits = ms => {
+  return function(...attrs) {
+    const result = ms(...attrs);
+    return {
+      ...result,
+      px: result.value + "px",
+      rem: result.ratio + "rem",
+      em: result.ratio + "em"
     };
   };
 };
