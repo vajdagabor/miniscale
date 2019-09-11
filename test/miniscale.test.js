@@ -74,6 +74,28 @@ describe("scale() function", () => {
       ratio: 0.05852766346593507
     });
   });
+
+  it("accepts a second parameter that works as multiplier", () => {
+    const ms = scale(10, 2); // 10, 20, 40, 80
+
+    expect(ms(0, 2)).toMatchObject({
+      index: 0,
+      value: 10 * 2,
+      ratio: 1 * 2
+    });
+
+    expect(ms(2, 4)).toMatchObject({
+      index: 2,
+      value: 40 * 4,
+      ratio: 4 * 4
+    });
+
+    expect(ms(-2, 3)).toMatchObject({
+      index: -2,
+      value: 2.5 * 3,
+      ratio: 0.25 * 3
+    });
+  });
 });
 
 describe("withUnits()", () => {
@@ -95,6 +117,17 @@ describe("withUnits()", () => {
       px: "40px",
       rem: "4rem",
       em: "4em"
+    });
+  });
+
+  it("works with multiplier", () => {
+    expect(msu(0, 20)).toMatchObject({
+      index: 0,
+      value: 200,
+      ratio: 20,
+      px: "200px",
+      rem: "20rem",
+      em: "20em"
     });
   });
 });
@@ -193,7 +226,7 @@ describe("scaleArrayFrom()", () => {
         px: "20px",
         rem: "2rem",
         em: "2em"
-      },
-    ])
+      }
+    ]);
   });
 });

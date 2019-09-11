@@ -5,8 +5,9 @@
 // All-in-one function for setting up the scale and getting the values.
 export const scale = (base, ratio) => {
   if (ratio <= 0) throw new Error("Ratio must be larger than zero");
-  return function ms(index) {
-    const r = ratio ** index;
+
+  return function ms(index, multiplier = 1) {
+    const r = ratio ** index * multiplier;
     const v = base * r;
     return {
       index,

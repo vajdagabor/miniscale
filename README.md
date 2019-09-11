@@ -14,8 +14,8 @@ npm install miniscale
 Set up your scale with a base (font) size, and a ratio:
 
 ```js
-import * as modular from 'miniscale';
-const ms = modular.scale(16, 1.125);
+import { scale } from 'miniscale';
+const ms = scale(16, 1.125);
 ```
 
 Calculate certain steps, sizes and ratios, while walking up or down
@@ -31,6 +31,19 @@ ms(-1).ratio  // -> 0.8888888888888888
 
 // Get the base
 ms(0)         // -> { index: 0, value: 16, ratio: 1 }
+```
+
+The `ms()` function accepts a second parameter: a **multiplier** value.
+Spacing that is based on type scale is a good use case for this feature:
+
+```js
+// Here we choose base font size as main spacing unit
+const space = (units) => ms(0, units)
+
+// Then we can include space as number of units:
+space(1).px   // -> 16px
+space(5).px   // -> 80px
+space(2).rem  // -> 2rem
 ```
 
 For stylesheets `px`, `rem` and `em` conversion comes handy:
