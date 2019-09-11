@@ -33,18 +33,8 @@ ms(-1).ratio  // -> 0.8888888888888888
 ms(0)         // -> { index: 0, value: 16, ratio: 1 }
 ```
 
-The `ms()` function accepts a second parameter: a **multiplier** value.
-Spacing that is based on type scale is a good use case for this feature:
 
-```js
-// Here we choose base font size as main spacing unit
-const space = (units) => ms(0, units)
-
-// Then we can include space as number of units:
-space(1).px   // -> 16px
-space(5).px   // -> 80px
-space(2).rem  // -> 2rem
-```
+### Values with units
 
 For stylesheets `px`, `rem` and `em` conversion comes handy:
 
@@ -57,6 +47,25 @@ ms(2).px   // -> "20.25px"
 ms(2).rem  // -> "1.265625rem"
 ms(2).em  // -> "1.265625em"
 ```
+
+
+### Multiplier (for spacing)
+
+The `ms()` function accepts a second parameter: a multiplier value.
+Typography-based spacing is a good use case for this feature:
+
+```js
+// Here we choose base font size as main spacing unit
+const space = (units) => ms(0, units)
+
+// Then we can include space as number of units:
+space(1).px   // -> 16px
+space(5).px   // -> 80px
+space(2).rem  // -> 2rem
+```
+
+
+### Generating a scale as array
 
 The `scale()` function calculates the values on the fly. If you need a static
 array of the steps, you can use the `scaleArray()` function. It generates an array in the range of `min` and `max`, that contains all values of each step.
