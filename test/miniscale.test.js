@@ -134,8 +134,11 @@ describe("withUnits()", () => {
 
 describe("scaleArray()", () => {
   it("throws error when either min or max is undefined", () => {
+    //@ts-ignore
     expect(() => scaleArray(scale(16, 1.2))).toThrow();
+    //@ts-ignore
     expect(() => scaleArray(scale(16, 1.2), { min: 10 })).toThrow();
+    //@ts-ignore
     expect(() => scaleArray(scale(16, 1.2), { max: 10 })).toThrow();
   });
 
