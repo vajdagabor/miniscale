@@ -3,7 +3,8 @@
     "allowJs": true,
     "checkJs": true,
     "moduleResolution": "node",
-    "target": "es2020"
+    "target": "es2020",
+    "outDir": "./lib"
   },
   "typeAcquisition": {
     "include": ["jest"]
