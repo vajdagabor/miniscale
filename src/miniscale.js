@@ -101,4 +101,4 @@ export function scaleArray(ms, { min, max }) {
   return steps;
 }
 
-export {scaleArray as scaleArrayFrom}
+export { scaleArray as scaleArrayFrom };
