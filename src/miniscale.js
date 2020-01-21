@@ -27,7 +27,7 @@
  */
 
 export function scale(base, ratio) {
-  if (ratio <= 0) throw new Error("Ratio must be larger than zero");
+  if (ratio <= 0) throw new Error("Ratio must be larger than zero")
 
   return (
     /**
@@ -38,15 +38,15 @@ export function scale(base, ratio) {
      */
 
     function ms(index, multiplier = 1) {
-      const r = ratio ** index * multiplier;
-      const v = base * r;
+      const r = ratio ** index * multiplier
+      const v = base * r
       return {
         index,
         ratio: r,
         value: v
-      };
+      }
     }
-  );
+  )
 }
 
 /**
@@ -64,16 +64,16 @@ export function withUnits(ms) {
      */
 
     function(index, multiplier = 1) {
-      const result = ms(index, multiplier);
+      const result = ms(index, multiplier)
 
       return {
         ...result,
         px: result.value + "px",
         rem: result.ratio + "rem",
         em: result.ratio + "em"
-      };
+      }
     }
-  );
+  )
 }
 
 /**
@@ -86,19 +86,19 @@ export function withUnits(ms) {
  */
 
 export function scaleArray(ms, { min, max }) {
-  let steps = [];
+  let steps = []
   if (typeof min !== "number" || typeof max !== "number")
-    throw new Error("Min and max should be defined as numbers");
-  if (min <= 0) throw new Error("Min must be larger than zero");
-  if (max <= min) throw new Error("Max must be larger than min");
+    throw new Error("Min and max should be defined as numbers")
+  if (min <= 0) throw new Error("Min must be larger than zero")
+  if (max <= min) throw new Error("Max must be larger than min")
 
   for (let index = 0; ms(index).value <= max; index++)
-    if (ms(index).value >= min) steps.push(ms(index));
+    if (ms(index).value >= min) steps.push(ms(index))
 
   for (let index = -1; ms(index).value >= min; index--)
-    if (ms(index).value <= max) steps.unshift(ms(index));
+    if (ms(index).value <= max) steps.unshift(ms(index))
 
-  return steps;
+  return steps
 }
 
-export { scaleArray as scaleArrayFrom };
+export { scaleArray as scaleArrayFrom }

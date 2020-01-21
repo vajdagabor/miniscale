@@ -1,105 +1,105 @@
-import { scale, withUnits, scaleArray, scaleArrayFrom } from "../src/miniscale";
+import { scale, withUnits, scaleArray, scaleArrayFrom } from "../src/miniscale"
 
 describe("scale() function", () => {
-  const ms1 = scale(16, 1.125);
-  const ms2 = scale(21, 1.2);
-  const ms3 = scale(13.5, 1.5);
+  const ms1 = scale(16, 1.125)
+  const ms2 = scale(21, 1.2)
+  const ms3 = scale(13.5, 1.5)
 
   it("throws error when ratio is zero", () => {
-    expect(() => scale(16, 0)).toThrow();
-  });
+    expect(() => scale(16, 0)).toThrow()
+  })
 
   it("throws error when ratio is negative", () => {
-    expect(() => scale(16, -3)).toThrow();
-  });
+    expect(() => scale(16, -3)).toThrow()
+  })
 
   it("returns a function", () => {
-    expect(typeof ms1).toBe("function");
-  });
+    expect(typeof ms1).toBe("function")
+  })
 
   it("returns a function that returns an object", () => {
-    expect(typeof ms1(0)).toBe("object");
-  });
+    expect(typeof ms1(0)).toBe("object")
+  })
 
   it("returns the correct values when called with zero index", () => {
     expect(ms1(0)).toMatchObject({
       index: 0,
       value: 16,
       ratio: 1
-    });
+    })
     expect(ms2(0)).toMatchObject({
       index: 0,
       value: 21,
       ratio: 1
-    });
+    })
     expect(ms3(0)).toMatchObject({
       index: 0,
       value: 13.5,
       ratio: 1
-    });
-  });
+    })
+  })
 
   it("returns the correct values when called with positive index", () => {
     expect(ms1(5)).toMatchObject({
       index: 5,
       value: 28.83251953125,
       ratio: 1.802032470703125
-    });
+    })
     expect(ms2(2)).toMatchObject({
       index: 2,
       value: 30.24,
       ratio: 1.44
-    });
+    })
     expect(ms3(7)).toMatchObject({
       index: 7,
       value: 230.66015625,
       ratio: 17.0859375
-    });
-  });
+    })
+  })
 
   it("returns the correct values when called with negative index", () => {
     expect(ms1(-5)).toMatchObject({
       index: -5,
       value: 8.878863316906298,
       ratio: 0.5549289573066436
-    });
+    })
     expect(ms2(-2)).toMatchObject({
       index: -2,
       value: 14.583333333333332,
       ratio: 0.6944444444444444
-    });
+    })
     expect(ms3(-7)).toMatchObject({
       index: -7,
       value: 0.7901234567901234,
       ratio: 0.05852766346593507
-    });
-  });
+    })
+  })
 
   it("accepts a second parameter that works as multiplier", () => {
-    const ms = scale(10, 2); // 10, 20, 40, 80
+    const ms = scale(10, 2) // 10, 20, 40, 80
 
     expect(ms(0, 2)).toMatchObject({
       index: 0,
       value: 10 * 2,
       ratio: 1 * 2
-    });
+    })
 
     expect(ms(2, 4)).toMatchObject({
       index: 2,
       value: 40 * 4,
       ratio: 4 * 4
-    });
+    })
 
     expect(ms(-2, 3)).toMatchObject({
       index: -2,
       value: 2.5 * 3,
       ratio: 0.25 * 3
-    });
-  });
-});
+    })
+  })
+})
 
 describe("withUnits()", () => {
-  const msu = withUnits(scale(10, 2));
+  const msu = withUnits(scale(10, 2))
 
   it("makes scale() to include values with units in the final result", () => {
     expect(msu(0)).toMatchObject({
@@ -109,7 +109,7 @@ describe("withUnits()", () => {
       px: "10px",
       rem: "1rem",
       em: "1em"
-    });
+    })
     expect(msu(2)).toMatchObject({
       index: 2,
       value: 40,
@@ -117,8 +117,8 @@ describe("withUnits()", () => {
       px: "40px",
       rem: "4rem",
       em: "4em"
-    });
-  });
+    })
+  })
 
   it("works with multiplier", () => {
     expect(msu(0, 20)).toMatchObject({
@@ -128,41 +128,35 @@ describe("withUnits()", () => {
       px: "200px",
       rem: "20rem",
       em: "20em"
-    });
-  });
-});
+    })
+  })
+})
 
 describe("scaleArray()", () => {
   it("throws error when either min or max is undefined", () => {
     //@ts-ignore
-    expect(() => scaleArray(scale(16, 1.2))).toThrow();
+    expect(() => scaleArray(scale(16, 1.2))).toThrow()
     //@ts-ignore
-    expect(() => scaleArray(scale(16, 1.2), { min: 10 })).toThrow();
+    expect(() => scaleArray(scale(16, 1.2), { min: 10 })).toThrow()
     //@ts-ignore
-    expect(() => scaleArray(scale(16, 1.2), { max: 10 })).toThrow();
-  });
+    expect(() => scaleArray(scale(16, 1.2), { max: 10 })).toThrow()
+  })
 
   it("throws error when min is not larger than zero", () => {
-    expect(() =>
-      scaleArray(scale(16, 1.2), { min: 0, max: 100 })
-    ).toThrow();
-    expect(() =>
-      scaleArray(scale(16, 1.2), { min: -1, max: 100 })
-    ).toThrow();
-  });
+    expect(() => scaleArray(scale(16, 1.2), { min: 0, max: 100 })).toThrow()
+    expect(() => scaleArray(scale(16, 1.2), { min: -1, max: 100 })).toThrow()
+  })
 
   it("throws error when max is not larger than min", () => {
-    expect(() =>
-      scaleArray(scale(16, 1.2), { min: 10, max: 10 })
-    ).toThrow();
-    expect(() => scaleArray(scale(16, 1.2), { min: 2, max: 1 })).toThrow();
-  });
+    expect(() => scaleArray(scale(16, 1.2), { min: 10, max: 10 })).toThrow()
+    expect(() => scaleArray(scale(16, 1.2), { min: 2, max: 1 })).toThrow()
+  })
 
   it("returns a scale as array, in the range of min and max", () => {
     const steps = scaleArray(scale(16, 1.125), {
       min: 14,
       max: 25
-    });
+    })
     expect(steps).toMatchObject([
       {
         index: -1,
@@ -185,14 +179,14 @@ describe("scaleArray()", () => {
         value: 22.78125,
         ratio: 1.423828125
       }
-    ]);
-  });
+    ])
+  })
 
   it("includes min and max values", () => {
     const steps = scaleArray(scale(16, 1.125), {
       min: 14.222222222222221,
       max: 18
-    });
+    })
     expect(steps).toMatchObject([
       {
         index: -1,
@@ -205,27 +199,27 @@ describe("scaleArray()", () => {
         value: 18,
         ratio: 1.125
       }
-    ]);
-  });
+    ])
+  })
 
   it("works when max is smaller than base", () => {
-    const steps = scaleArray(scale(24, 2), { min: 3, max: 6 });
+    const steps = scaleArray(scale(24, 2), { min: 3, max: 6 })
     expect(steps).toMatchObject([
       { index: -3, ratio: 0.125, value: 3 },
       { index: -2, ratio: 0.25, value: 6 }
-    ]);
-  });
+    ])
+  })
 
   it("works when min is larger than base", () => {
-    const steps = scaleArray(scale(12, 2), { min: 24, max: 48 });
+    const steps = scaleArray(scale(12, 2), { min: 24, max: 48 })
     expect(steps).toMatchObject([
       { index: 1, ratio: 2, value: 24 },
       { index: 2, ratio: 4, value: 48 }
-    ]);
-  });
+    ])
+  })
 
   it("includes values with units when called as scaleArray(withUnits(scale, min, max))", () => {
-    const steps = scaleArray(withUnits(scale(10, 2)), { min: 2, max: 30 });
+    const steps = scaleArray(withUnits(scale(10, 2)), { min: 2, max: 30 })
     expect(steps).toMatchObject([
       {
         index: -2,
@@ -259,11 +253,11 @@ describe("scaleArray()", () => {
         rem: "2rem",
         em: "2em"
       }
-    ]);
-  });
+    ])
+  })
 
-  it("works with the scaleArray() alias", () => {
-    const steps = scaleArray(withUnits(scale(10, 2)), { min: 2, max: 30 });
-    expect(Array.isArray(steps)).toBe(true);
-  });
-});
+  it("works with the scaleArrayFrom() alias", () => {
+    const steps = scaleArrayFrom(withUnits(scale(10, 2)), { min: 2, max: 30 })
+    expect(Array.isArray(steps)).toBe(true)
+  })
+})
