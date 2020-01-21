@@ -133,12 +133,27 @@ describe("withUnits()", () => {
 });
 
 describe("scaleArrayFrom()", () => {
+  it('throws error when either min or max is undefined', () => {
+    expect(() => scaleArrayFrom(scale(16, 1.2))).toThrow();
+    expect(() => scaleArrayFrom(scale(16, 1.2), {min: 10})).toThrow();
+    expect(() => scaleArrayFrom(scale(16, 1.2), {max: 10})).toThrow();
+  });
+
   it("throws error when min is not larger than zero", () => {
     expect(() =>
       scaleArrayFrom(scale(16, 1.2), { min: 0, max: 100 })
     ).toThrow();
     expect(() =>
       scaleArrayFrom(scale(16, 1.2), { min: -1, max: 100 })
+    ).toThrow();
+  });
+
+  it("throws error when max is not larger than min", () => {
+    expect(() =>
+      scaleArrayFrom(scale(16, 1.2), { min: 10, max: 10 })
+    ).toThrow();
+    expect(() =>
+      scaleArrayFrom(scale(16, 1.2), { min: 2, max: 1 })
     ).toThrow();
   });
 
