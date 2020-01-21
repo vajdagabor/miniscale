@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "build": "babel src -d lib --source-maps",
-    "declaration:build": "tsc -p declaration.tsconfig.json",
+    "declaration:build": "tsc -p tsconfig.declaration.json",
     "dev": "npm run build -- --watch",
     "test": "jest",
     "test-watch": "npm run test -- --watch",
