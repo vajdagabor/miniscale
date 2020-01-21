@@ -8,7 +8,7 @@
     "/lib"
   ],
   "scripts": {
-    "build": "babel src -d lib",
+    "build": "babel src -d lib --source-maps",
     "declaration:build": "tsc -p declaration.tsconfig.json",
     "dev": "npm run build -- --watch",
     "test": "jest",
