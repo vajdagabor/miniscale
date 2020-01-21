@@ -9,10 +9,11 @@
   ],
   "scripts": {
     "build": "babel src -d lib",
+    "declaration:build": "tsc -p declaration.tsconfig.json",
     "dev": "npm run build -- --watch",
     "test": "jest",
     "test-watch": "npm run test -- --watch",
-    "prepublish": "npm run build"
+    "prepare": "npm run build && npm run declaration:build"
   },
   "keywords": [
     "modular",
@@ -43,8 +44,10 @@
     "@babel/cli": "^7.8.3",
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
+    "@types/jest": "^24.9.0",
     "babel-preset-minify": "^0.5.1",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "typescript": "^3.7.5"
   },
   "dependencies": {}
 }
