@@ -71,8 +71,8 @@ The `scale()` function calculates the values on the fly. If you need a static
 array of the steps, you can use the `scaleArray()` function. It generates an array in the range of `min` and `max`, that contains all values of each step.
 
 ```js
-import { scale, scaleArrayFrom } from 'miniscale'
-const steps = scaleArrayFrom(scale(16, 1.125), { min: 14, max: 36 })
+import { scale, scaleArray } from 'miniscale'
+const steps = scaleArray(scale(16, 1.125), { min: 14, max: 36 })
 
 /*
  *[ { index: -1, value: 14.222222222222221, ratio: 0.8888888888888888 },
@@ -89,7 +89,7 @@ const steps = scaleArrayFrom(scale(16, 1.125), { min: 14, max: 36 })
 The `withUnits()` function can be used here too:
 
 ```js
-const steps = scaleArrayFrom(withUnits(scale(16, 1.125)), { min: 14, max: 36 })
+const steps = scaleArray(withUnits(scale(16, 1.125)), { min: 14, max: 36 })
 console.log(steps[2].px)  // -> "18px"
 console.log(steps[2].rem)  // -> "1.125rem"
 ```

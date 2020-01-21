@@ -1,4 +1,4 @@
-import { scale, withUnits, scaleArrayFrom } from "../src/miniscale";
+import { scale, withUnits, scaleArray, scaleArrayFrom } from "../src/miniscale";
 
 describe("scale() function", () => {
   const ms1 = scale(16, 1.125);
@@ -132,31 +132,31 @@ describe("withUnits()", () => {
   });
 });
 
-describe("scaleArrayFrom()", () => {
+describe("scaleArray()", () => {
   it("throws error when either min or max is undefined", () => {
-    expect(() => scaleArrayFrom(scale(16, 1.2))).toThrow();
-    expect(() => scaleArrayFrom(scale(16, 1.2), { min: 10 })).toThrow();
-    expect(() => scaleArrayFrom(scale(16, 1.2), { max: 10 })).toThrow();
+    expect(() => scaleArray(scale(16, 1.2))).toThrow();
+    expect(() => scaleArray(scale(16, 1.2), { min: 10 })).toThrow();
+    expect(() => scaleArray(scale(16, 1.2), { max: 10 })).toThrow();
   });
 
   it("throws error when min is not larger than zero", () => {
     expect(() =>
-      scaleArrayFrom(scale(16, 1.2), { min: 0, max: 100 })
+      scaleArray(scale(16, 1.2), { min: 0, max: 100 })
     ).toThrow();
     expect(() =>
-      scaleArrayFrom(scale(16, 1.2), { min: -1, max: 100 })
+      scaleArray(scale(16, 1.2), { min: -1, max: 100 })
     ).toThrow();
   });
 
   it("throws error when max is not larger than min", () => {
     expect(() =>
-      scaleArrayFrom(scale(16, 1.2), { min: 10, max: 10 })
+      scaleArray(scale(16, 1.2), { min: 10, max: 10 })
     ).toThrow();
-    expect(() => scaleArrayFrom(scale(16, 1.2), { min: 2, max: 1 })).toThrow();
+    expect(() => scaleArray(scale(16, 1.2), { min: 2, max: 1 })).toThrow();
   });
 
   it("returns a scale as array, in the range of min and max", () => {
-    const steps = scaleArrayFrom(scale(16, 1.125), {
+    const steps = scaleArray(scale(16, 1.125), {
       min: 14,
       max: 25
     });
@@ -186,7 +186,7 @@ describe("scaleArrayFrom()", () => {
   });
 
   it("includes min and max values", () => {
-    const steps = scaleArrayFrom(scale(16, 1.125), {
+    const steps = scaleArray(scale(16, 1.125), {
       min: 14.222222222222221,
       max: 18
     });
@@ -206,7 +206,7 @@ describe("scaleArrayFrom()", () => {
   });
 
   it("works when max is smaller than base", () => {
-    const steps = scaleArrayFrom(scale(24, 2), { min: 3, max: 6 });
+    const steps = scaleArray(scale(24, 2), { min: 3, max: 6 });
     expect(steps).toMatchObject([
       { index: -3, ratio: 0.125, value: 3 },
       { index: -2, ratio: 0.25, value: 6 }
@@ -214,15 +214,15 @@ describe("scaleArrayFrom()", () => {
   });
 
   it("works when min is larger than base", () => {
-    const steps = scaleArrayFrom(scale(12, 2), { min: 24, max: 48 });
+    const steps = scaleArray(scale(12, 2), { min: 24, max: 48 });
     expect(steps).toMatchObject([
       { index: 1, ratio: 2, value: 24 },
       { index: 2, ratio: 4, value: 48 }
     ]);
   });
 
-  it("includes values with units when called as scaleArrayFrom(withUnits(scale, min, max))", () => {
-    const steps = scaleArrayFrom(withUnits(scale(10, 2)), { min: 2, max: 30 });
+  it("includes values with units when called as scaleArray(withUnits(scale, min, max))", () => {
+    const steps = scaleArray(withUnits(scale(10, 2)), { min: 2, max: 30 });
     expect(steps).toMatchObject([
       {
         index: -2,
@@ -257,5 +257,10 @@ describe("scaleArrayFrom()", () => {
         em: "2em"
       }
     ]);
+  });
+
+  it("works with the scaleArray() alias", () => {
+    const steps = scaleArray(withUnits(scale(10, 2)), { min: 2, max: 30 });
+    expect(Array.isArray(steps)).toBe(true);
   });
 });

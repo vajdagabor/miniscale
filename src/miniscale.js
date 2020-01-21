@@ -85,7 +85,7 @@ export function withUnits(ms) {
  * @return {Step[]|StepWithCSSUnits[]}
  */
 
-export function scaleArrayFrom(ms, { min, max }) {
+export function scaleArray(ms, { min, max }) {
   let steps = [];
   if (typeof min !== "number" || typeof max !== "number")
     throw new Error("Min and max should be defined as numbers");
@@ -100,3 +100,5 @@ export function scaleArrayFrom(ms, { min, max }) {
 
   return steps;
 }
+
+export {scaleArray as scaleArrayFrom}
