@@ -86,18 +86,17 @@ export function withUnits(ms) {
  */
 
 export function scaleArrayFrom(ms, { min, max }) {
-  const base = ms(0).value;
   let steps = [];
   if (typeof min !== "number" || typeof max !== "number")
     throw new Error("Min and max should be defined as numbers");
   if (min <= 0) throw new Error("Min must be larger than zero");
   if (max <= min) throw new Error("Max must be larger than min");
-  if (min > base || max < base) return [];
 
-  for (let index = 0; ms(index).value <= max; index++) steps.push(ms(index));
+  for (let index = 0; ms(index).value <= max; index++)
+    if (ms(index).value >= min) steps.push(ms(index));
 
   for (let index = -1; ms(index).value >= min; index--)
-    steps.unshift(ms(index));
+    if (ms(index).value <= max) steps.unshift(ms(index));
 
   return steps;
 }
