@@ -1,5 +1,10 @@
 import { scale, withUnits, scaleArray, scaleArrayFrom } from "../src/miniscale"
 
+const closeTo = (expected, precision = 2) => ({
+  asymmetricMatch: actual =>
+    Math.abs(expected - actual) < Math.pow(10, -precision) / 2
+})
+
 describe("scale() function", () => {
   const ms1 = scale(16, 1.125)
   const ms2 = scale(21, 1.2)
@@ -65,8 +70,8 @@ describe("scale() function", () => {
     })
     expect(ms2(-2)).toMatchObject({
       index: -2,
-      value: 14.583333333333332,
-      ratio: 0.6944444444444444
+      value: closeTo(14.583333, 6),
+      ratio: closeTo(0.694444, 6)
     })
     expect(ms3(-7)).toMatchObject({
       index: -7,
